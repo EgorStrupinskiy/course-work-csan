@@ -9,6 +9,7 @@ let message = {
 }
 let history = [];
 let userId;
+let ourId
 
 document.getElementById("name_button").addEventListener("click", (e) => {
     if (document.getElementById("name").value === '') {
@@ -28,6 +29,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
 
         chatSocket.onopen = (e) => {
             message['userName'] = localStorage.getItem("userName")
+            userName = localStorage.getItem("userName")
             message['type'] = "start"
             chatSocket.send(JSON.stringify(message));
             console.log("Socket is open");
@@ -37,7 +39,8 @@ document.getElementById("name_button").addEventListener("click", (e) => {
             const data = JSON.parse(e.data)
             if (data['type'] === "start") {
                 message = data
-                userId = message['userId']
+                ourId = message['userId']
+                // userId = message['userId']
                 console.log("Message type 'start'")
                 fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
                     .then((response) => {
@@ -76,9 +79,9 @@ function sendMessage(data) {
 
     var x = document.createElement("LI")
     var t = document.createTextNode(message)
-    console.log(userId)
+    console.log(ourId)
     console.log(data['userId'])
-    if (data['userId'] === userId) {
+    if (data['userId'] === ourId) {
         x.style.color = "green"
     } else {
         x.style.color = "red"
