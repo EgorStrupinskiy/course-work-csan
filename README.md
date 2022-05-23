@@ -1,3 +1,3 @@
-# rock-paper-scissors-CSAN
-4th lab CSaN BSUIR
-Rock-paper-scissors game online
+# course-project-CSAN
+4th sem course work CSaN BSUIR
+Online game center
