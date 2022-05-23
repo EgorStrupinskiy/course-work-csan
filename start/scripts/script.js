@@ -1,3 +1,15 @@
+let chatSocket = new WebSocket("ws://localhost:8080/chat")
+let message = {
+    userName: "",
+    userId: "",
+    groupId: "",
+    userMessage: "",
+    type: "", 
+    data: ""
+}
+let history = [];
+let userId;
+
 document.getElementById("name_button").addEventListener("click", (e) => {
     if (document.getElementById("name").value === '') {
         alert("Please, enter the name");
@@ -9,6 +21,40 @@ document.getElementById("name_button").addEventListener("click", (e) => {
         localStorage.setItem('userName', name);
 
         document.getElementById("chat").style.display = "block";
+
+        // Connection
+
+        chatSocket = new WebSocket("ws://localhost:8080/chat")
+
+        chatSocket.onopen = (e) => {
+            message['userName'] = localStorage.getItem("userName")
+            message['type'] = "start"
+            chatSocket.send(JSON.stringify(message));
+            console.log("Socket is open");
+        }
+
+        chatSocket.onmessage = (e) => {
+            const data = JSON.parse(e.data)
+            if (data['type'] === "start") {
+                message = data
+                userId = message['userId']
+                console.log("Message type 'start'")
+                fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        for (var i = 0; i < data.length; i++) {
+                            console.log(data[i]);
+                        }
+                    });
+            }
+            if (data['type'] === "message") {
+                console.log(data)
+                console.log("Message received")
+                sendMessage(data)
+            }
+        }
     }
 })
 
@@ -22,24 +68,22 @@ document.getElementById("leave_button").addEventListener("click", (e) => {
 
 //alert('hello bobo');
 
-document.getElementById("send_message_button").addEventListener("click", (e) => {
-    Data = new Date()
-    Hour = Data.getHours()
-    Minutes = Data.getMinutes()
-    Seconds = Data.getSeconds()
-    if (document.getElementById("message").value === '') {
-        return 0;
-    }
-    // Вывод
-    var utcDate = (Hour + ":" + Minutes + ":" + Seconds)
-    var text = document.getElementById("message").value
-    var initials = localStorage.getItem("userName");
-    var message = utcDate + " : " + initials + ': ' + text
+function sendMessage(data) {
+    var text = data['userMessage']
+    var initials = data['userName'];
+    var date = data['data']
+    var message = date + " : " + initials + ': ' + text
 
     var x = document.createElement("LI")
     var t = document.createTextNode(message)
+    console.log(userId)
+    console.log(data['userId'])
+    if (data['userId'] === userId) {
+        x.style.color = "green"
+    } else {
+        x.style.color = "red"
+    }
     x.appendChild(t)
-    x.style.color = "red"
     x.style.fontSize = "20"
     document.getElementById("history").appendChild(x)
 
@@ -47,9 +91,23 @@ document.getElementById("send_message_button").addEventListener("click", (e) => 
     var lemon = document.getElementById('history')
     lemon.scrollTop = lemon.scrollHeight
     document.getElementById("message").value = ""
+}
 
+document.getElementById("send_message_button").addEventListener("click", (e) => {
+    message['userMessage'] = document.getElementById("message").value
+    message['userName'] = localStorage.getItem("userName")
+    message['type'] = "message"
 
+    Data = new Date()
+    Hour = Data.getHours()
+    Minutes = Data.getMinutes()
+    Seconds = Data.getSeconds()
+    // Вывод
+    var utcDate = (Hour + ":" + Minutes + ":" + Seconds)
+
+    message['data'] = utcDate
+    // message[]
+    chatSocket.send(JSON.stringify(message));
     //   socket.emit('message', message);
-    //   $('#message').val('');
     return false;
 });
