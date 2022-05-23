@@ -488,6 +488,7 @@ body {
     padding: 0px;
 }
 
+
 .chat__container {
     margin-top: 40px;
     padding: 0px 20px;
@@ -507,7 +508,7 @@ body {
 }
 
 ul {
-    color: #ffed2b;
+    color: #8cd96b;
     font-size: 30px;
     margin: 10px auto;
     list-style: none;
@@ -520,11 +521,6 @@ ul {
 li {
     padding-right: 20px auto;
     padding-left: -60px auto;
-}
-
-li:nth-child(odd) {
-    color: #fff;
-    font-size: 20px;
 }
 
 ol {
@@ -547,10 +543,10 @@ ol {
 }
 
 .history {
-    height: 200px;
-    background-color: #a8d8ba;
+    height: 250px;
+    background-color: #fff;
     border: 3px solid #8cd96b;
-    border-radius: 30px;
+    border-radius: 15px;
     /* padding: 0px 0px 0px 30px; */
 }
 

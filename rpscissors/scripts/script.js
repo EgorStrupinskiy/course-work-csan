@@ -19,68 +19,68 @@ document.getElementById("name_button").addEventListener("click", (e) => {
     // if (document.getElementById("name").value === '') {
     //     alert("Please, enter the name");
     // } else {
-        e.preventDefault()
-        socket = new WebSocket("ws://localhost:8080/websocket")
-        state = "online"
-        socket.onopen = () => {
-            userInfo['sessionStatus'] = 'start';
-            // userInfo['userName'] = document.getElementById("name").value;
-            userInfo['userName'] = localStorage.getItem("loggedUser");
+    e.preventDefault()
+    socket = new WebSocket("ws://localhost:8080/websocket")
+    state = "online"
+    socket.onopen = () => {
+        userInfo['sessionStatus'] = 'start';
+        // userInfo['userName'] = document.getElementById("name").value;
+        userInfo['userName'] = localStorage.getItem("userName");
 
-            socket.send(JSON.stringify(userInfo));
-            console.log("Socket is open");
+        socket.send(JSON.stringify(userInfo));
+        console.log("Socket is open");
+    }
+    document.getElementById("form").style.display = "none"
+    document.getElementById("waiting_page").style.display = "flex"
+    document.getElementById("pScore").textContent = "Your score: "
+    document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+
+    socket.onmessage = (e) => {
+        console.log("Message received");
+        userInfo = JSON.parse(e.data);
+        if (userInfo['sessionStatus'] === "start") {
+            console.log("start message");
+            document.getElementById("waiting_page").style.display = "none"
+            document.getElementById("game").style.display = "flex"
+            document.getElementById("cScore").textContent = userInfo.userName + ": "
+
         }
-        document.getElementById("form").style.display = "none"
-        document.getElementById("waiting_page").style.display = "flex"
-        document.getElementById("pScore").textContent = "Your score: "
-        document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-
-        socket.onmessage = (e) => {
-            console.log("Message received");
-            userInfo = JSON.parse(e.data);
-            if (userInfo['sessionStatus'] === "start") {
-                console.log("start message");
-                document.getElementById("waiting_page").style.display = "none"
-                document.getElementById("game").style.display = "flex"
-                document.getElementById("cScore").textContent = userInfo.userName + ": "
-
-            }
-            if (userInfo['sessionStatus'] === "game") {
-                console.log("game message");
-                computerChoice = userInfo['userChoice'];
-                document.getElementById("animation1").style.animation = 'example .4s 1'
-                document.getElementById("animation2").style.animation = 'example .4s 1'
-            }
-            if (userInfo['sessionStatus'] === "terminate") {
-                alert("Your opponent left")
-                console.log("terminate message");
-                document.getElementById("waiting_page").style.display = "flex"
-                document.getElementById("pScore").textContent = "Your score: "
-                document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-                document.getElementById("game").style.display = "none"
-                document.getElementById("rounds_left").style.display = "none"
-                document.getElementById("pScore").style.display = "none"
-                document.getElementById("cScore").style.display = "none"
-                document.getElementById("final").style.display = "none"
-                document.getElementById("animation1").style.display = "none"
-                document.getElementById("animation2").style.display = "none"
-                document.getElementById("hands_and_btn").style.display = "none"
-                document.getElementById("repeat_button").style.display = "none"
-            
-                document.getElementById("hands_and_btn").style.display = "block"
-                playerScore = 0
-                computerScore = 0
-                moves = 0
-            }
+        if (userInfo['sessionStatus'] === "game") {
+            console.log("game message");
+            computerChoice = userInfo['userChoice'];
+            document.getElementById("animation1").style.animation = 'example .4s 1'
+            document.getElementById("animation2").style.animation = 'example .4s 1'
         }
+        if (userInfo['sessionStatus'] === "terminate") {
+            alert("Your opponent left")
+            console.log("terminate message");
+            document.getElementById("waiting_page").style.display = "flex"
+            document.getElementById("pScore").textContent = "Your score: "
+            document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+            document.getElementById("game").style.display = "none"
+            document.getElementById("rounds_left").style.display = "none"
+            document.getElementById("pScore").style.display = "none"
+            document.getElementById("cScore").style.display = "none"
+            document.getElementById("final").style.display = "none"
+            document.getElementById("animation1").style.display = "none"
+            document.getElementById("animation2").style.display = "none"
+            document.getElementById("hands_and_btn").style.display = "none"
+            document.getElementById("repeat_button").style.display = "none"
 
-
-        socket.onclose = () => {
-            console.log("Socket closed");
+            document.getElementById("hands_and_btn").style.display = "block"
+            playerScore = 0
+            computerScore = 0
+            moves = 0
         }
+    }
 
-        //document.getElementById("form").style.display = "none"
-        //document.getElementById("game").style.display = "flex"
+
+    socket.onclose = () => {
+        console.log("Socket closed");
+    }
+
+    //document.getElementById("form").style.display = "none"
+    //document.getElementById("game").style.display = "flex"
 })
 
 document.getElementById("offline_button").addEventListener("click", (e) => {
@@ -102,7 +102,7 @@ function clearBtns() {
     document.getElementById("btn_paper_panel").style.background = "#e6e8da";
     document.getElementById("btn_rock_panel").style.background = "#e6e8da";
     document.getElementById("btn_scissors_panel").style.background = "#e6e8da";
-    
+
     document.getElementById("btn_paper_panel").style.borderColor = "#8cd96b";
     document.getElementById("btn_rock_panel").style.borderColor = "#8cd96b";
     document.getElementById("btn_scissors_panel").style.borderColor = "#8cd96b";
@@ -116,7 +116,7 @@ document.getElementById("elem1").addEventListener("click", (e) => {
     document.getElementById("btn_paper_panel").style.background = "#8cd96b";
     document.getElementById("btn_paper_panel").style.borderColor = "#ffed2b"
     document.getElementById("game_button").style.display = "block"
-    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
+    document.getElementById("game_button").scrollIntoView({ block: "center", behavior: "smooth" });
 })
 
 document.getElementById("elem2").addEventListener("click", (e) => {
@@ -126,7 +126,7 @@ document.getElementById("elem2").addEventListener("click", (e) => {
     document.getElementById("btn_rock_panel").style.background = "#8cd96b";
     document.getElementById("btn_rock_panel").style.borderColor = "#ffed2b"
     document.getElementById("game_button").style.display = "block"
-    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
+    document.getElementById("game_button").scrollIntoView({ block: "center", behavior: "smooth" });
 })
 
 document.getElementById("elem3").addEventListener("click", (e) => {
@@ -136,7 +136,7 @@ document.getElementById("elem3").addEventListener("click", (e) => {
     document.getElementById("btn_scissors_panel").style.background = "#8cd96b";
     document.getElementById("btn_scissors_panel").style.borderColor = "#ffed2b"
     document.getElementById("game_button").style.display = "block"
-    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
+    document.getElementById("game_button").scrollIntoView({ block: "center", behavior: "smooth" });
 })
 
 
@@ -281,8 +281,8 @@ const game = () => {
         opponentScoreBoard.textContent = `${userInfo['userName']}: ${computerScore}`;
         playerScoreBoard.textContent = `Your score: ${playerScore}`;
         document.getElementById("repeat_button").style.display = "flex";
-        
-        document.getElementById('bottom').scrollIntoView({block: "center", behavior: "smooth"});
+
+        document.getElementById('bottom').scrollIntoView({ block: "center", behavior: "smooth" });
     }
 
 
@@ -319,22 +319,45 @@ const game = () => {
 // Calling the game function
 game();
 
-var socket = io();
+// var socket = io();
 
 //alert('hello bobo');
 
-$('chat_form').submit(function () {
-  //var utcDate = (new Date()).toUTCString();
-  var text = $('#message').val();
-  var initials = localStorage.getItem("loggedUser");
-  var message = initials + ': ' + text;
-  socket.emit('message', message);
-  $('#message').val('');
-  return false;
+document.getElementById("send_message_button").addEventListener("click", (e) => {
+    Data = new Date();
+    Hour = Data.getHours();
+    Minutes = Data.getMinutes();
+    Seconds = Data.getSeconds();
+    if (document.getElementById("message").value === '') {
+        return 0;
+    }
+    // Вывод
+    var utcDate = (Hour + ":" + Minutes + ":" + Seconds);
+    var text = document.getElementById("message").value;;
+    var initials = localStorage.getItem("userName");
+    var message = utcDate + " : " + initials + ': ' + text;
+
+    var x = document.createElement("LI");
+    var t = document.createTextNode(message);
+    x.appendChild(t);
+    x.style.color = "red";
+    x.style.fontSize = "20";
+    document.getElementById("history").appendChild(x);
+
+    //   $('<li>').text(message).appendTo('#history');
+    var lemon = document.getElementById('history');
+    lemon.scrollTop = lemon.scrollHeight;
+    document.getElementById("message").value = ""
+
+
+
+    //   socket.emit('message', message);
+    //   $('#message').val('');
+    return false;
 });
 
-socket.on('message', function (msg) {
-  $('<li>').text(msg).appendTo('#history');
-  var lemon = document.getElementById('history');
-  lemon.scrollTop = lemon.scrollHeight;
-});
+// socket.on('message', function (msg) {
+//   $('<li>').text(msg).appendTo('#history');
+//   var lemon = document.getElementById('history');
+//   lemon.scrollTop = lemon.scrollHeight;
+// });
