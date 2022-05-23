@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>API project</title>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inconsolata:wght@300&family=Josefin+Sans:wght@200&display=swap"
+        rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="indexStart/style.css" />
+    <link rel="shortcut icon" href="./indexStart/images/logo.png" type="image/x-icon">
+    <script src="./scripts/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header__with_logo">
+                <div class="header__inner">
+                    <div class="text_and_logo">
+                        <img class="header__logo" id="header_logo" src="./indexStart/images/logo.png" alt="">
+                        <div class="header__text">
+                            <h1>
+                                <span>A</span>rcade <span>G</span>ame <span>C</span>enter
+                            </h1>
+                        </div>
+                        <button class="leave__btn" id="leave_button" type="submit">Reload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="form__container" id="formName">
+        <div id="content" class="form__content">
+            <form class="form" method="post">
+                <div class="form__title"><span>E</span>nter <span>y</span>our <span>n</span>ame</div>
+                <input class="input" id="name" type="text" placeholder="Your name" pattern=".{1,}" required>
+                <button class="form__btn" id="name_button" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="form__container" id="formGames">
+        <div id="content" class="form__content">
+            <form class="form" method="post">
+                <div class="form__title"><span>C</span>hoose <span>y</span>our <span>g</span>ame</div>
+                <button class="form__btn" id="rpscissors_button"><a
+                        href="../rpscissors/index.html">Rock-paper-scissors</a></button>
+                <button class="form__btn" id="ttt_button" type="submit">Tic-Tac-Toe</button>
+                <button class="form__btn" id="aim_button" type="submit">Aim-test</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="bottom"></div>
+</body>
+
+</html>

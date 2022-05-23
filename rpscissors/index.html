@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>API project</title>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inconsolata:wght@300&family=Josefin+Sans:wght@200&display=swap"
+        rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="indexAssets/style.css" />
+    <link rel="shortcut icon" href="./indexAssets/images/logo.png" type="image/x-icon">
+    <script src="./scripts/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header__with_logo">
+                <div class="header__inner">
+                    <div class="text_and_logo">
+                        <img class="header__logo" id="header_logo" src="./indexAssets/images/logo.png" alt="">
+                        <div class="header__text">
+                            <h1>
+                                <span>R</span>ock <span>P</span>aper <span>S</span>cissors
+                            </h1>
+                        </div>
+                        <button class="leave__btn" id="leave_button" type="submit">Reload</button>
+
+
+                    </div>
+                    <div class="score">
+                        <div class="rounds_title" id="rounds_left">Rounds Left: 10</div>
+                        <div class="rounds_title" id="pScore"></div>
+                        <div class="rounds_title" id="cScore"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+
+    <div class="waiting__container" id="waiting_page">
+        <div class="waiting_screen">
+            <div class="wait__title"><span>W</span>ait <span>P</span>lease</div>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div class="form__container" id="form">
+        <div id="content" class="form__content">
+            <form class="form" method="post">
+                <div class="form__title"><span>C</span>hoose <span>M</span>ode</div>
+                <button class="form__btn" id="name_button" type="submit">Go online :)</button>
+                <div class="inner"></div>
+                <button class="form__btn" id="offline_button" type="submit">Go offline :(</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="game__container" id="game">
+        <div id="content" class="game__content">
+            <div class="hands_and_btn" id="hands_and_btn">
+                <div class="game__title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
+                <div class="hands">
+                    <div class="game__panel" id="btn_paper_panel">
+                        <div class="game__btn_paper">
+                            <input id="elem1" type="submit" name="" value="">
+                        </div>
+                    </div>
+                    <div class="game__panel" id="btn_rock_panel">
+                        <div class="game__btn_rock" id="btn_rock">
+                            <input id="elem2" type="submit" name="" value="">
+                        </div>
+                    </div>
+                    <div class="game__panel" id="btn_scissors_panel">
+                        <div class="game__btn_scissors" id="btn_scissors">
+                            <input id="elem3" type="submit" name="" value="">
+                        </div>
+                    </div>
+                </div>
+                
+    <div id="bottom"></div>
+
+                <button class="game__btn" id="game_button" type="submit">Send</button>
+            </div>
+
+            <div class="final" id="final">
+                <div class="animation" id="animation1">
+                    <img class=wait_hand_left id="left_hand" src="./indexAssets/hands/leftWait.png" alt="">
+                </div>
+                <div class="final__text" id="result">Waiting.....</div>
+                <div class="animation" id="animation2">
+                    <img class=wait_hand_right id="right_hand" src="./indexAssets/hands/rightWait.png" alt="">
+                </div>
+                <div class="final__title" id="final_title"><span>C</span>hoose <span>y</span>our
+                    <span>f</span>ighter
+                </div>
+            </div>
+
+            <button class="repeat_btn" id="repeat_button" type="submit">Continue</button>
+
+
+        </div>
+
+        <div class="chat__container" id="chat">
+            <div class="chat">
+                <div class = "history">
+                    <ul id="history">
+                        
+                    <li>These pretzels are making me thirsty!</li>
+                    <li>Right on</li>
+                   
+                    </ul>
+                </div>
+                <ol>
+                    <chat_form>
+                        <input class="chat__input" id="message" type="text" placeholder="Your message" pattern=".{1,}" required>
+                        <button class="chat__btn" id="send_message_button" type="submit">Send</button>
+                    </chat_form>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
