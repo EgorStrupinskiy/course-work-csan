@@ -4,35 +4,35 @@ let message = {
     userId: "",
     groupId: "",
     userMessage: "",
-    type: "", 
+    type: "",
     data: ""
 }
-let history = [];
-let userId;
+let history = []
+let userId
 let ourId
 
 document.getElementById("name_button").addEventListener("click", (e) => {
     if (document.getElementById("name").value === '') {
-        alert("Please, enter the name");
+        alert("Please, enter the name")
     } else {
-        e.preventDefault();
-        document.getElementById("formName").style.display = "none";
-        document.getElementById("formGames").style.display = "flex";
-        var name = document.getElementById("name").value;
-        localStorage.setItem('userName', name);
+        e.preventDefault()
+        document.getElementById("formName").style.display = "none"
+        document.getElementById("formGames").style.display = "flex"
+        var name = document.getElementById("name").value
+        localStorage.setItem('userName', name)
 
-        document.getElementById("chat").style.display = "block";
+        document.getElementById("chat").style.display = "block"
 
         // Connection
-
+        
         chatSocket = new WebSocket("ws://localhost:8080/chat")
 
         chatSocket.onopen = (e) => {
             message['userName'] = localStorage.getItem("userName")
             userName = localStorage.getItem("userName")
             message['type'] = "start"
-            chatSocket.send(JSON.stringify(message));
-            console.log("Socket is open");
+            chatSocket.send(JSON.stringify(message))
+            console.log("Socket is open")
         }
 
         chatSocket.onmessage = (e) => {
@@ -44,13 +44,13 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 console.log("Message type 'start'")
                 fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
                     .then((response) => {
-                        return response.json();
+                        return response.json()
                     })
                     .then((data) => {
                         for (var i = 0; i < data.length; i++) {
-                            console.log(data[i]);
+                            console.log(data[i])
                         }
-                    });
+                    })
             }
             if (data['type'] === "message") {
                 console.log(data)
@@ -61,19 +61,15 @@ document.getElementById("name_button").addEventListener("click", (e) => {
     }
 })
 
-document.getElementById("formGames").style.display = "none";
+document.getElementById("formGames").style.display = "none"
 document.getElementById("leave_button").addEventListener("click", (e) => {
     e.preventDefault()
-    window.location.reload();
+    window.location.reload()
 })
-
-// var socket = io();
-
-//alert('hello bobo');
 
 function sendMessage(data) {
     var text = data['userMessage']
-    var initials = data['userName'];
+    var initials = data['userName']
     var date = data['data']
     var message = date + " : " + initials + ': ' + text
 
@@ -90,7 +86,7 @@ function sendMessage(data) {
     x.style.fontSize = "20"
     document.getElementById("history").appendChild(x)
 
-    //   $('<li>').text(message).appendTo('#history');
+    //   $('<li>').text(message).appendTo('#history')
     var lemon = document.getElementById('history')
     lemon.scrollTop = lemon.scrollHeight
     document.getElementById("message").value = ""
@@ -110,7 +106,7 @@ document.getElementById("send_message_button").addEventListener("click", (e) => 
 
     message['data'] = utcDate
     // message[]
-    chatSocket.send(JSON.stringify(message));
-    //   socket.emit('message', message);
-    return false;
-});
+    chatSocket.send(JSON.stringify(message))
+    //   socket.emit('message', message)
+    return false
+})
