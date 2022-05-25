@@ -171,8 +171,8 @@ document.getElementById("game_button").addEventListener("click", (e) => {
 
     var lefthand = document.getElementById("animation1")
     var righthand = document.getElementById("animation2")
-    document.getElementById("left_hand").src = `./indexAssets/hands/leftWait.png`;
-    document.getElementById("right_hand").src = `./indexAssets/hands/rightWait.png`;
+    document.getElementById("left_hand").src = `./ticTacAssets/hands/leftWait.png`;
+    document.getElementById("right_hand").src = `./ticTacAssets/hands/rightWait.png`;
     document.getElementById('result').textContent = "Wait...";
     var lefthand = document.getElementById("animation1")
     var righthand = document.getElementById("animation2")
@@ -208,9 +208,9 @@ document.getElementById("leave_button").addEventListener("click", (e) => {
 
 const game = () => {
     document.getElementById("animation1").addEventListener('animationend', function (e) {
-        document.getElementById("left_hand").src = `./indexAssets/hands/${playerOptions[playerChoice]}Left.png`;
+        document.getElementById("left_hand").src = `./ticTacAssets/hands/${playerOptions[playerChoice]}Left.png`;
         document.getElementById("left_hand").style.transform = 'rotate(30deg)';
-        document.getElementById("right_hand").src = `./indexAssets/hands/${computerChoice}Right.png`;
+        document.getElementById("right_hand").src = `./ticTacAssets/hands/${computerChoice}Right.png`;
         document.getElementById("right_hand").style.transform = 'rotate(-30deg)';
         // document.getElementById("repeat_button").scrollIntoView({block: "center", behavior: "smooth"});
         document.getElementById('bottom').scrollIntoView(true);

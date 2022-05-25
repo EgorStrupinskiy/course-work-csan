@@ -2,14 +2,14 @@
 
 body {
     font-family: helvetica, arial, sans-serif;
-    background: #a8d8ba no-repeat center center fixed;
+    background: #4a7aff no-repeat center center fixed;
     background-size: cover;
     font-family: 'Anton', sans-serif;
     font-family: 'Inconsolata', monospace;
     font-family: 'Josefin Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     padding: 20px 0px;
-    color: #8cd96b;
+    color: #0053bf;
 }
 
 .container {
@@ -20,7 +20,7 @@ body {
 }
 
 .header__text span {
-    color: #8cd96b;
+    color: #ff5f96;
 }
 
 
@@ -34,9 +34,9 @@ body {
 }
 
 .header__inner {
-    background-color: #e6e8da;
+    background-color: #e9edf5;
 
-    border: 8px solid #8cd96b;
+    border: 8px solid #0053bf;
     padding: 0 0px 0 0;
     border-radius: 40px;
     align-items: center;
@@ -75,14 +75,14 @@ body {
     width: 80px;
     height: 80px;
 
-    border: 3px solid #fff;
+    border: 4px solid #ff5f96;
     border-radius: 30px;
-    background-color: #8cd96b;
+    /* background-color: #4a7aff; */
     cursor: pointer;
     margin: 60px 0 0 30px;
     font-family: 'Anton', sans-serif;
     font-size: 22px;
-    color: #fff;
+    color: #4a7aff;
     transition: .3s linear;
 }
 
@@ -110,9 +110,9 @@ body {
 .form__content {
     margin-top: 40px;
     padding-bottom: 40px;
-    background-color: #e6e8da;
+    background-color: #e9edf5;
     width: 40%;
-    border: 8px #8cd96b solid;
+    border: 8px #0053bf solid;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -138,9 +138,9 @@ body {
 .waiting_screen {
     margin-top: 40px;
     padding-bottom: 40px;
-    background-color: #e6e8da;
+    background-color: #e9edf5;
     width: 40%;
-    border: 8px #8cd96b solid;
+    border: 8px #0053bf solid;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -159,7 +159,7 @@ body {
     padding: 20px 40px;
     background-color: #fff;
     margin: 10px 0px;
-    border: 6px solid #8cd96b;
+    border: 6px solid #ff5f96;
     border-radius: 30px;
     width: 50%;
     font-size: 40px;
@@ -171,7 +171,7 @@ body {
 }
 
 .lobby:hover {
-    border-color: #ffed2b;
+    border-color: #4a7aff;
 }
 
 .wait__title {
@@ -187,7 +187,7 @@ body {
 }
 
 .wait__title span {
-    color: #8cd96b;
+    color: #ff5f96;
 }
 
 .form {
@@ -205,13 +205,13 @@ body {
     padding: 8px 10px;
     margin-bottom: 30px;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #0053bf;
     border-radius: 40px;
     font-size: 16px;
 }
 
 .inner {
-    border-bottom: 8px solid #8cd96b;
+    border-bottom: 8px solid #0053bf;
     width: 110%;
 }
 
@@ -220,7 +220,7 @@ body {
     width: 110%;
     padding: 12px 10px;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #ff5f96;
     border-radius: 30px;
     background-color: #fff;
     cursor: pointer;
@@ -233,8 +233,7 @@ body {
 }
 
 .form__btn:hover {
-    background-color: #8cd96b;
-    border-color: #fff;
+    border-color: #4a7aff;
 }
 
 .form__title {
@@ -250,7 +249,7 @@ body {
 }
 
 .form__title span {
-    color: #8cd96b;
+    color: #ff5f96;
 }
 
 /* Game */
@@ -268,9 +267,9 @@ body {
 .game__content {
     margin-top: 40px;
     padding-bottom: 20px;
-    background-color: #e6e8da;
+    background-color: #e9edf5;
     width: 100%;
-    border: 8px #8cd96b solid;
+    border: 8px #0053bf solid;
     border-radius: 100px;
 }
 
@@ -287,7 +286,7 @@ body {
 }
 
 .game__title span {
-    color: #8cd96b;
+    color: #ff5f96;
 }
 
 .hands {
@@ -299,7 +298,7 @@ body {
     padding: 20px;
     margin-top: 30px;
     margin: 40px 100px;
-    border: 5px #8cd96b solid;
+    border: 5px #0053bf solid;
     border-radius: 30px;
     transition: ease .4s;
 }
@@ -343,9 +342,9 @@ body {
     margin-left: 25%;
     padding: 12px 10px;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #ff5f96;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: #e9edf5;
     cursor: pointer;
 
     font-family: 'Anton', sans-serif;
@@ -355,8 +354,7 @@ body {
 }
 
 .game__btn:hover {
-    background-color: #8cd96b;
-    border-color: #fff;
+    border-color: #4a7aff;
 }
 
 .animation {
@@ -399,10 +397,10 @@ body {
     margin: 20px 30px 20px 80px;
     font-size: 35px;
     font-weight: 700;
-    color: #8cd96b;
+    color: #ff5f96;
     text-transform: uppercase;
     font-family: 'Anton', sans-serif;
-    text-shadow: 2px 2px 2px #ffed2b;
+    text-shadow: 2px 2px 2px #4a7aff;
     text-align: center;
     display: none;
 }
@@ -429,9 +427,9 @@ body {
     align-items: center;
     justify-content: center;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #ff5f96;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: #e9edf5;
     cursor: pointer;
 
     font-family: 'Anton', sans-serif;
@@ -441,9 +439,8 @@ body {
 }
 
 .repeat_btn:hover {
-    background-color: #8cd96b;
     color: #000;
-    border-color: #fff;
+    border-color: #4a7aff;
 }
 
 .final__title {
@@ -473,10 +470,10 @@ body {
     font-size: 10px;
     position: relative;
     text-indent: -9999em;
-    border-top: 1.5em solid #8cd96b;
-    border-right: 1.5em solid #8cd96b;
-    border-bottom: 1.5em solid #8cd96b;
-    border-left: 1.5em solid #ffed2b;
+    border-top: 1.5em solid #0053bf;
+    border-right: 1.5em solid #0053bf;
+    border-bottom: 1.5em solid #0053bf;
+    border-left: 1.5em solid #ff5f96;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
@@ -520,9 +517,9 @@ body {
 .chat__container {
     margin-top: 40px;
     padding: 0px 20px;
-    background-color: #e6e8da;
+    background-color: #e9edf5;
     width: 100%;
-    border: 8px #8cd96b solid;
+    border: 8px #0053bf solid;
     border-radius: 100px;
     margin-bottom: 0px;
 }
@@ -536,7 +533,7 @@ body {
 }
 
 ul {
-    color: #8cd96b;
+    color: #0053bf;
     font-size: 30px;
     margin: 10px auto;
     list-style: none;
@@ -573,7 +570,7 @@ ol {
 .history {
     height: 250px;
     background-color: #fff;
-    border: 3px solid #8cd96b;
+    border: 3px solid #0053bf;
     border-radius: 15px;
     /* padding: 0px 0px 0px 30px; */
 }
@@ -582,7 +579,7 @@ ol {
     display: block;
     padding: 12px 100px;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #0053bf;
     border-radius: 30px;
     background-color: #fff;
     cursor: pointer;
@@ -595,7 +592,7 @@ ol {
 }
 
 .chat__btn:hover {
-    background-color: #8cd96b;
+    background-color: #0053bf;
     border-color: #fff;
 }
 
@@ -605,7 +602,7 @@ ol {
     padding: 12px 22px;
     margin-bottom: 30px;
 
-    border: 3px solid #8cd96b;
+    border: 3px solid #0053bf;
     border-radius: 40px;
     font-size: 16px;
 }
