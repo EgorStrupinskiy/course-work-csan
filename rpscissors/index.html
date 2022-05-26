@@ -46,11 +46,21 @@
 
 
     <div class="waiting__container" id="waiting_page">
-        <div class="waiting_screen">
+        <div class="waiting_screen" id = "mode_choose">
+            <div class="wait__title"><span>C</span>hoose <span>M</span>ode</div>
+            <button class="form__btn" id="lobby_find_button" type="submit">Find room</button>
+            <button class="form__btn" id="lobby_create_button" type="submit">Create room</button>
+            <button class="form__btn" id="queue_button" type="submit">Go in queue</button>
+        </div>
+        <div class="waiting_screen" id = "rooms">
             <div class="wait__title"><span>W</span>ait <span>P</span>lease</div>
-            <div class="loader"></div>
+            <div class="loader" id = "loader"></div>
             <div class="lobbies" id = "lobbies">
             </div>
+        </div>
+        <div class="waiting_screen" id = "room_page">
+            <div class="wait__title" id = "start_button"><span>S</span>tart <span>G</span>ame</div>
+            <button class="lobby" id="game_start_button" type="submit">Start</button>
         </div>
     </div>
 
@@ -58,7 +68,7 @@
         <div id="content" class="form__content">
             <form class="form" method="post">
                 <div class="form__title"><span>C</span>hoose <span>M</span>ode</div>
-                <button class="form__btn" id="name_button" type="submit">Go online :)</button>
+                <button class="form__btn" id="online_button" type="submit">Go online :)</button>
                 <div class="inner"></div>
                 <button class="form__btn" id="offline_button" type="submit">Go offline :(</button>
             </form>
@@ -66,7 +76,7 @@
     </div>
 
     <div class="game__container" id="game">
-        <div id="content" class="game__content">
+        <div id= "content_game" class="game__content">
             <div class="hands_and_btn" id="hands_and_btn">
                 <div class="game__title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
                 <div class="hands">

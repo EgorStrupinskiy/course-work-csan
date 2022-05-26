@@ -40,6 +40,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
     document.getElementById("waiting_page").style.display = "flex"
     document.getElementById("pScore").textContent = "Your score: "
     document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+    document.getElementById("lobby_create_button").style.display = "flex"
     for (let i = 0; i < lobbies.length; i++) {
         console.log(lobbies[i])
         var x = document.createElement("A")
