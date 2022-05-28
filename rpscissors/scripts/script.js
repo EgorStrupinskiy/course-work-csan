@@ -65,90 +65,67 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
 
     chatSocket.send(JSON.stringify(message))
     console.log("Game started")
-            socket = new WebSocket("ws://localhost:8080/websocket")
-            state = "online"
-            socket.onopen = () => {
-                userInfo['sessionStatus'] = 'room game';
-                userInfo['userName'] = ourId
-                userInfo['userChoice'] = id
-                socket.send(JSON.stringify(userInfo));
-                console.log("Socket is open");
-            }
-            document.getElementById("rooms").style.display = "none"
-            document.getElementById("room_page").style.display = "none"
-        
-            document.getElementById("form").style.display = "none"
-            document.getElementById("waiting_page").style.display = "flex"
-            document.getElementById("content_game").style.display = "flex"
+        socket = new WebSocket("ws://localhost:8080/websocket")
+        state = "online"
+        socket.onopen = () => {
+            userInfo['sessionStatus'] = 'room game';
+            userInfo['userName'] = ourId
+            userInfo['userChoice'] = id
+            socket.send(JSON.stringify(userInfo));
+            console.log("Socket is open");
+        }
+        document.getElementById("rooms").style.display = "none"
+        document.getElementById("room_page").style.display = "none"
+    
+        document.getElementById("form").style.display = "none"
+        document.getElementById("waiting_page").style.display = "flex"
+        document.getElementById("content_game").style.display = "flex"
 
-            document.getElementById("pScore").textContent = "Your score: "
-            document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-            fetch('http://localhost:8080/message/getAllRooms')
-                .then((response) => {
-                    return response.json()
-                })
-                .then((data) => {
-                    lobbies = data
-                    console.log(data)
-                    console.log(lobbies[0].name)
-                    document.getElementById("loader").style.display = "none"
-                    for (let i = 0; i < lobbies.length; i++) {
-                        var x = document.createElement("A")
-                        console.log(lobbies[0].name)
-                        var t = document.createTextNode(lobbies[i].name)
-                        x.appendChild(t)
-                        x.setAttribute('href', '#');
-                        x.classList.add("lobby")
-        
-                        x.style.fontSize = "20"
-                        document.getElementById("lobbies").appendChild(x)
-                        var lemon = document.getElementById('lobbies')
-                        lemon.scrollTop = lemon.scrollHeight
-                    }
-                })
-        
-            socket.onmessage = (e) => {
-                console.log("Message received");
-                userInfo = JSON.parse(e.data);
-                if (userInfo['sessionStatus'] === "start") {
-                    console.log("start message");
-                    document.getElementById("waiting_page").style.display = "none"
-                    document.getElementById("game").style.display = "flex"
-                    document.getElementById("cScore").textContent = userInfo.userName + ": "
-        
-                }
-                if (userInfo['sessionStatus'] === "game") {
-                    console.log("game message");
-                    computerChoice = userInfo['userChoice'];
-                    document.getElementById("animation1").style.animation = 'example .4s 1'
-                    document.getElementById("animation2").style.animation = 'example .4s 1'
-                }
-                if (userInfo['sessionStatus'] === "terminate") {
-                    alert("Your opponent left")
-                    console.log("terminate message");
-                    document.getElementById("waiting_page").style.display = "flex"
-                    document.getElementById("pScore").textContent = "Your score: "
-                    document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-                    document.getElementById("game").style.display = "none"
-                    document.getElementById("rounds_left").style.display = "none"
-                    document.getElementById("pScore").style.display = "none"
-                    document.getElementById("cScore").style.display = "none"
-                    document.getElementById("final").style.display = "none"
-                    document.getElementById("animation1").style.display = "none"
-                    document.getElementById("animation2").style.display = "none"
-                    document.getElementById("hands_and_btn").style.display = "none"
-                    document.getElementById("repeat_button").style.display = "none"
-        
-                    document.getElementById("hands_and_btn").style.display = "block"
-                    playerScore = 0
-                    computerScore = 0
-                    moves = 0
-                }
+        document.getElementById("pScore").textContent = "Your score: "
+        document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+
+        socket.onmessage = (e) => {
+            console.log("Message received");
+            userInfo = JSON.parse(e.data);
+            if (userInfo['sessionStatus'] === "start") {
+                console.log("start message");
+                document.getElementById("waiting_page").style.display = "none"
+                document.getElementById("game").style.display = "flex"
+                document.getElementById("cScore").textContent = userInfo.userName + ": "
+    
             }
-        
-            socket.onclose = () => {
-                console.log("Socket closed");
+            if (userInfo['sessionStatus'] === "game") {
+                console.log("game message");
+                computerChoice = userInfo['userChoice'];
+                document.getElementById("animation1").style.animation = 'example .4s 1'
+                document.getElementById("animation2").style.animation = 'example .4s 1'
             }
+            if (userInfo['sessionStatus'] === "terminate") {
+                console.log("terminate message");
+                alert("Your opponent left")
+                document.getElementById("waiting_page").style.display = "flex"
+                document.getElementById("pScore").textContent = "Your score: "
+                document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+                document.getElementById("game").style.display = "none"
+                document.getElementById("rounds_left").style.display = "none"
+                document.getElementById("pScore").style.display = "none"
+                document.getElementById("cScore").style.display = "none"
+                document.getElementById("final").style.display = "none"
+                document.getElementById("animation1").style.display = "none"
+                document.getElementById("animation2").style.display = "none"
+                document.getElementById("hands_and_btn").style.display = "none"
+                document.getElementById("repeat_button").style.display = "none"
+    
+                document.getElementById("hands_and_btn").style.display = "block"
+                playerScore = 0
+                computerScore = 0
+                moves = 0
+            }
+        }
+    
+        socket.onclose = () => {
+            console.log("Socket closed");
+        }
         
 })
 
@@ -209,30 +186,7 @@ function enterLobby(id) {
             document.getElementById("content_game").style.display = "flex"
 
             document.getElementById("pScore").textContent = "Your score: "
-            document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-            fetch('http://localhost:8080/message/getAllRooms')
-                .then((response) => {
-                    return response.json()
-                })
-                .then((data) => {
-                    lobbies = data
-                    console.log(data)
-                    console.log(lobbies[0].name)
-                    document.getElementById("loader").style.display = "none"
-                    for (let i = 0; i < lobbies.length; i++) {
-                        var x = document.createElement("A")
-                        console.log(lobbies[0].name)
-                        var t = document.createTextNode(lobbies[i].name)
-                        x.appendChild(t)
-                        x.setAttribute('href', '#');
-                        x.classList.add("lobby")
-        
-                        x.style.fontSize = "20"
-                        document.getElementById("lobbies").appendChild(x)
-                        var lemon = document.getElementById('lobbies')
-                        lemon.scrollTop = lemon.scrollHeight
-                    }
-                })
+            document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" })
         
             socket.onmessage = (e) => {
                 console.log("Message received");
@@ -328,95 +282,6 @@ document.getElementById("online_button").addEventListener("click", (e) => {
     document.getElementById("form").style.display = "none"
     document.getElementById("rooms").style.display = "none"
     document.getElementById("room_page").style.display = "none"
-})
-
-document.getElementById("elem1").addEventListener("click", (e) => {
-    e.preventDefault()
-    socket = new WebSocket("ws://localhost:8080/websocket")
-    state = "online"
-    socket.onopen = () => {
-        userInfo['sessionStatus'] = 'start';
-        userInfo['userName'] = localStorage.getItem("userName");
-        
-        socket.send(JSON.stringify(userInfo));
-        console.log("Socket is open");
-    }
-    document.getElementById("rooms").style.display = "none"
-    document.getElementById("room_page").style.display = "none"
-
-    document.getElementById("form").style.display = "none"
-    document.getElementById("waiting_page").style.display = "flex"
-    document.getElementById("pScore").textContent = "Your score: "
-    document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-    fetch('http://localhost:8080/message/getAllRooms')
-        .then((response) => {
-            return response.json()
-        })
-        .then((data) => {
-            lobbies = data
-            console.log(data)
-            console.log(lobbies[0].name)
-            document.getElementById("loader").style.display = "none"
-            for (let i = 0; i < lobbies.length; i++) {
-                var x = document.createElement("A")
-                console.log(lobbies[0].name)
-                var t = document.createTextNode(lobbies[i].name)
-                x.appendChild(t)
-                x.setAttribute('href', '#');
-                x.classList.add("lobby")
-
-                x.style.fontSize = "20"
-                document.getElementById("lobbies").appendChild(x)
-                var lemon = document.getElementById('lobbies')
-                lemon.scrollTop = lemon.scrollHeight
-            }
-        })
-
-    socket.onmessage = (e) => {
-        console.log("Message received");
-        userInfo = JSON.parse(e.data);
-        if (userInfo['sessionStatus'] === "start") {
-            console.log("start message");
-            document.getElementById("waiting_page").style.display = "none"
-            document.getElementById("game").style.display = "flex"
-            document.getElementById("cScore").textContent = userInfo.userName + ": "
-
-        }
-        if (userInfo['sessionStatus'] === "game") {
-            console.log("game message");
-            computerChoice = userInfo['userChoice'];
-            document.getElementById("animation1").style.animation = 'example .4s 1'
-            document.getElementById("animation2").style.animation = 'example .4s 1'
-        }
-        if (userInfo['sessionStatus'] === "terminate") {
-            alert("Your opponent left")
-            console.log("terminate message");
-            document.getElementById("waiting_page").style.display = "flex"
-            document.getElementById("pScore").textContent = "Your score: "
-            document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-            document.getElementById("game").style.display = "none"
-            document.getElementById("rounds_left").style.display = "none"
-            document.getElementById("pScore").style.display = "none"
-            document.getElementById("cScore").style.display = "none"
-            document.getElementById("final").style.display = "none"
-            document.getElementById("animation1").style.display = "none"
-            document.getElementById("animation2").style.display = "none"
-            document.getElementById("hands_and_btn").style.display = "none"
-            document.getElementById("repeat_button").style.display = "none"
-
-            document.getElementById("hands_and_btn").style.display = "block"
-            playerScore = 0
-            computerScore = 0
-            moves = 0
-        }
-    }
-
-    socket.onclose = () => {
-        console.log("Socket closed");
-    }
-
-    //document.getElementById("form").style.display = "none"
-    //document.getElementById("game").style.display = "flex"
 })
 
 document.getElementById("offline_button").addEventListener("click", (e) => {
