@@ -29,6 +29,23 @@ var groupId
 document.getElementById("lobby_find_button").addEventListener("click", (e) => {
     document.getElementById("mode_choose").style.display = "none"
     document.getElementById("rooms").style.display = "flex"
+    getRooms()
+})
+
+document.getElementById("lobby_refresh_button").addEventListener("click", (e) => { 
+    var curLobbies = document.getElementById("lobbies")
+    // for(var i = 0; i < curLobbies.length; i++) {
+    //     document.getElementById("lobbies").removeChild(curLobbies[i])
+    // }
+    while (curLobbies.lastChild) {
+        curLobbies.removeChild(curLobbies.lastChild);
+    }
+    getRooms()
+})
+
+document
+
+function getRooms() {
     fetch('http://localhost:8080/message/getAllRooms')
         .then((response) => {
             return response.json()
@@ -41,22 +58,29 @@ document.getElementById("lobby_find_button").addEventListener("click", (e) => {
             for (let i = 0; i < lobbies.length; i++) {
                 var x = document.createElement("A")
                 console.log(lobbies[0].name)
-                var t = document.createTextNode(lobbies[i].name)
+                var t = document.createTextNode(lobbies[i].name + " (" + lobbies[i].currentPeopleCount + "/" + lobbies[i].maxPeopleCount + ")")
                 x.appendChild(t)
                 x.setAttribute('href', '#');
                 x.classList.add("lobby")
                 x.addEventListener('click', function() {
                     id = lobbies[i].UUID
-                    // alert(id)
-                    enterLobby(id)
-                }, true);
+                    fetch('http://localhost:8080/message/getRoom/'  + id)
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((data) => {
+                        if(data.currentPeopleCount != data.maxPeopleCount) {
+                            enterLobby(id)
+                        }
+                    })
+                }, true)
                 x.style.fontSize = "20"
                 document.getElementById("lobbies").appendChild(x)
                 var lemon = document.getElementById('lobbies')
                 lemon.scrollTop = lemon.scrollHeight
             }
         })
-})
+}
 
 document.getElementById("game_start_button").addEventListener("click", (e) => { 
     message['type'] = "game"
@@ -130,6 +154,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
 })
 
 function enterLobby(id) {
+
     document.getElementById("rooms").style.display = "none"
     chatSocket = new WebSocket("ws://localhost:8080/chat")
     document.getElementById("game").style.display = "block"
@@ -245,6 +270,9 @@ document.getElementById("lobby_create_button").addEventListener("click", (e) => 
         message['userName'] = localStorage.getItem("userName")
         userName = localStorage.getItem("userName")
         message['type'] = "create room"
+        message['userMessage'] = "2"
+        message['userId'] = "2"
+
         chatSocket.send(JSON.stringify(message))
         console.log("Socket is open")
     }

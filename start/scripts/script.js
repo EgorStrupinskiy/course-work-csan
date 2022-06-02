@@ -48,7 +48,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                     })
                     .then((data) => {
                         for (var i = 0; i < data.length; i++) {
-                            console.log(data[i])
+                            sendMessage(data[i])
                         }
                     })
             }
