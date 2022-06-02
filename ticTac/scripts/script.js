@@ -58,7 +58,6 @@ document.getElementById("name_button").addEventListener("click", (e) => {
     }
     console.log("start message");
     document.getElementById("waiting_page").style.display = "none"
-    document.getElementById("game").style.display = "flex"
     document.getElementById("cScore").textContent = userInfo.userName + ": "
 
     // socket.onmessage = (e) => {
