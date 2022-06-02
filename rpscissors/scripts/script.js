@@ -90,7 +90,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
             if (userInfo['sessionStatus'] === "start") {
                 console.log("start message");
                 document.getElementById("waiting_page").style.display = "none"
-                document.getElementById("game").style.display = "flex"
+                document.getElementById("game").style.display = "block"
                 document.getElementById("cScore").textContent = userInfo.userName + ": "
     
             }
@@ -132,7 +132,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
 function enterLobby(id) {
     document.getElementById("rooms").style.display = "none"
     chatSocket = new WebSocket("ws://localhost:8080/chat")
-    document.getElementById("game").style.display = "flex"
+    document.getElementById("game").style.display = "block"
     document.getElementById("content_game").style.display = "none"
     document.getElementById("game_start_button").style.display = "none"
 
@@ -158,7 +158,7 @@ function enterLobby(id) {
                 })
                 .then((data) => {
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i])
+                        sendMessage(data[i])
                     }
                 })
         }
@@ -238,7 +238,7 @@ document.getElementById("lobby_create_button").addEventListener("click", (e) => 
     document.getElementById("mode_choose").style.display = "none"
     document.getElementById("room_page").style.display = "flex"
     chatSocket = new WebSocket("ws://localhost:8080/chat")
-    document.getElementById("game").style.display = "flex"
+    document.getElementById("game").style.display = "block"
     document.getElementById("content_game").style.display = "none"
 
     chatSocket.onopen = (e) => {
@@ -387,7 +387,7 @@ document.getElementById("repeat_button").addEventListener("click", (e) => {
 document.getElementById("leave_button").addEventListener("click", (e) => {
     e.preventDefault()
     window.location.reload();
-
+    window.location.href = '../start/start.html';
 })
 
 const game = () => {
@@ -490,10 +490,6 @@ const game = () => {
     const gameOver = (playerOptions) => {
         const result1 = document.getElementById("result");
         result1.style.display = "flex"
-        // document.getElementById("result").style.display = "none"
-        // document.getElementById("animation1").style.display = "none"
-        // document.getElementById("animation2").style.display = "none"
-        // document.getElementById("hands_and_btn").style.display = "none"
         if (playerScore > computerScore) {
             result1.innerText = 'You Won The Game'
             result1.style.color = '#308D46';
@@ -519,49 +515,6 @@ const game = () => {
 
 // Calling the game function
 game();
-
-// var socket = io();
-
-//alert('hello bobo');
-
-// document.getElementById("send_message_button").addEventListener("click", (e) => {
-//     Data = new Date();
-//     Hour = Data.getHours();
-//     Minutes = Data.getMinutes();
-//     Seconds = Data.getSeconds();
-//     if (document.getElementById("message").value === '') {
-//         return 0;
-//     }
-//     // Вывод
-//     var utcDate = (Hour + ":" + Minutes + ":" + Seconds);
-//     var text = document.getElementById("message").value;;
-//     var initials = localStorage.getItem("userName");
-//     var message = utcDate + " : " + initials + ': ' + text;
-
-//     var x = document.createElement("LI");
-//     var t = document.createTextNode(message);
-//     x.appendChild(t);
-//     x.style.color = "red";
-//     x.style.fontSize = "20";
-//     document.getElementById("history").appendChild(x);
-
-//     //   $('<li>').text(message).appendTo('#history');
-//     var lemon = document.getElementById('history');
-//     lemon.scrollTop = lemon.scrollHeight;
-//     document.getElementById("message").value = ""
-
-
-
-//     //   socket.emit('message', message);
-//     //   $('#message').val('');
-//     return false;
-// });
-
-// socket.on('message', function (msg) {
-//   $('<li>').text(msg).appendTo('#history');
-//   var lemon = document.getElementById('history');
-//   lemon.scrollTop = lemon.scrollHeight;
-// });
 
 function sendMessage(data) {
     var text = data['userMessage']

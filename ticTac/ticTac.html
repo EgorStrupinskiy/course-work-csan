@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./ticTacAssets/style.css" />
     <link rel="shortcut icon" href="./ticTacAssets/images/logo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script src="./scripts/script.js" defer></script>
 </head>
 
@@ -66,8 +68,8 @@
     <div class="game__container" id="game">
         <div id="content" class="game__content">
             <div class="hands_and_btn" id="hands_and_btn">
-                <div class="game__title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
-                <div class="hands">
+                <div class="game__title"><span>T</span>ic <span>T</span>ac <span>T</span>oe</div>
+                <!-- <div class="hands">
                     <div class="game__panel" id="btn_paper_panel">
                         <div class="game__btn_paper">
                             <input id="elem1" type="submit" name="" value="">
@@ -103,32 +105,46 @@
                 </div>
             </div>
 
-            <button class="repeat_btn" id="repeat_button" type="submit">Continue</button>
+            <button class="repeat_btn" id="repeat_button" type="submit">Continue</button> -->
+                <section>
+                    <div class="game__field">
+                        <div data-cell-index="0" class="cell"></div>
+                        <div data-cell-index="1" class="cell"></div>
+                        <div data-cell-index="2" class="cell"></div>
+                        <div data-cell-index="3" class="cell"></div>
+                        <div data-cell-index="4" class="cell"></div>
+                        <div data-cell-index="5" class="cell"></div>
+                        <div data-cell-index="6" class="cell"></div>
+                        <div data-cell-index="7" class="cell"></div>
+                        <div data-cell-index="8" class="cell"></div>
+                    </div>
+                    <h2 class="game--status"></h2>
+                    <button class="game--restart">Restart Game</button>
+                </section>
 
-
-        </div>
-
-        <div class="chat__container" id="chat">
-            <div class="chat">
-                <div class="history" id="msg_list">
-                    <ul id="history">
-
-                        <li>Here is a chat!!!</li>
-
-
-                    </ul>
-                </div>
-                <ol>
-                    <chat_form>
-                        <input class="chat__input" id="message" type="text" placeholder="Your message" pattern=".{1,}"
-                            required>
-                        <button class="chat__btn" id="send_message_button" type="submit">Send</button>
-                    </chat_form>
-                </ol>
             </div>
-        </div>
 
-    </div>
+            <div class="chat__container" id="chat">
+                <div class="chat">
+                    <div class="history" id="msg_list">
+                        <ul id="history">
+
+                            <li>Here is a chat!!!</li>
+
+
+                        </ul>
+                    </div>
+                    <ol>
+                        <chat_form>
+                            <input class="chat__input" id="message" type="text" placeholder="Your message"
+                                pattern=".{1,}" required>
+                            <button class="chat__btn" id="send_message_button" type="submit">Send</button>
+                        </chat_form>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
 </body>
 
 </html>
