@@ -1,4 +1,4 @@
-let chatSocket = new WebSocket("ws://localhost:8080/chat")
+let chatSocket = new WebSocket("ws://arcade-game-center.herokuapp.com/chat")
 let message = {
     userName: "",
     userId: "",
@@ -25,7 +25,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
 
         // Connection
         
-        chatSocket = new WebSocket("ws://localhost:8080/chat")
+        chatSocket = new WebSocket("ws://arcade-game-center.herokuapp.com/chat")
 
         chatSocket.onopen = (e) => {
             message['userName'] = localStorage.getItem("userName")
@@ -42,7 +42,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 ourId = message['userId']
                 // userId = message['userId']
                 console.log("Message type 'start'")
-                fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
+                fetch('http://arcade-game-center.herokuapp.com/message/getHistory/' + data['groupId'])
                     .then((response) => {
                         return response.json()
                     })

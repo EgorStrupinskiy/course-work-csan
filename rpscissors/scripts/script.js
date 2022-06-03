@@ -42,7 +42,7 @@ document.getElementById("lobby_refresh_button").addEventListener("click", (e) =>
 
 
 function getRooms() {
-    fetch('http://localhost:8080/message/getAllRooms')
+    fetch('http://arcade-game-center.herokuapp.com/message/getAllRooms')
         .then((response) => {
             return response.json()
         })
@@ -60,7 +60,7 @@ function getRooms() {
                 x.classList.add("lobby")
                 x.addEventListener('click', function () {
                     id = lobbies[i].UUID
-                    fetch('http://localhost:8080/message/getRoom/' + id)
+                    fetch('http://arcade-game-center.herokuapp.com/message/getRoom/' + id)
                         .then((response) => {
                             return response.json()
                         })
@@ -82,7 +82,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
     message['type'] = "game"
     console.log("game start method")
     console.log(message)
-    fetch('http://localhost:8080/message/getRoom/' + id)
+    fetch('http://arcade-game-center.herokuapp.com/message/getRoom/' + id)
         .then((response) => {
             return response.json()
         })
@@ -91,7 +91,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
 
                 chatSocket.send(JSON.stringify(message))
                 console.log("Game started")
-                socket = new WebSocket("ws://localhost:8080/websocket")
+                socket = new WebSocket("ws://arcade-game-center.herokuapp.com/websocket")
                 state = "online"
                 socket.onopen = () => {
                     userInfo['sessionStatus'] = 'room game';
@@ -162,7 +162,7 @@ document.getElementById("game_start_button").addEventListener("click", (e) => {
 function enterLobby(id) {
 
     document.getElementById("rooms").style.display = "none"
-    chatSocket = new WebSocket("ws://localhost:8080/chat")
+    chatSocket = new WebSocket("ws://arcade-game-center.herokuapp.com/chat")
     document.getElementById("game").style.display = "block"
     document.getElementById("content_game").style.display = "none"
     document.getElementById("game_start_button").style.display = "none"
@@ -183,7 +183,7 @@ function enterLobby(id) {
             ourId = message['userId']
             // userId = message['userId']
             console.log("Message type 'start'")
-            fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
+            fetch('http://arcade-game-center.herokuapp.com/message/getHistory/' + data['groupId'])
                 .then((response) => {
                     return response.json()
                 })
@@ -200,7 +200,7 @@ function enterLobby(id) {
         }
         if (data['type'] === "game is started") {
             console.log("Game started")
-            socket = new WebSocket("ws://localhost:8080/websocket")
+            socket = new WebSocket("ws://arcade-game-center.herokuapp.com/websocket")
             state = "online"
             socket.onopen = () => {
                 userInfo['sessionStatus'] = 'room game';
@@ -268,7 +268,7 @@ function enterLobby(id) {
 document.getElementById("lobby_create_button").addEventListener("click", (e) => {
     document.getElementById("mode_choose").style.display = "none"
     document.getElementById("room_page").style.display = "flex"
-    chatSocket = new WebSocket("ws://localhost:8080/chat")
+    chatSocket = new WebSocket("ws://arcade-game-center.herokuapp.com/chat")
     document.getElementById("game").style.display = "block"
     document.getElementById("content_game").style.display = "none"
 
@@ -291,7 +291,7 @@ document.getElementById("lobby_create_button").addEventListener("click", (e) => 
             id = message['groupId']
             // userId = message['userId']
             console.log("Message type 'start'")
-            fetch('http://localhost:8080/message/getHistory/' + data['groupId'])
+            fetch('http://arcade-game-center.herokuapp.com/message/getHistory/' + data['groupId'])
                 .then((response) => {
                     return response.json()
                 })

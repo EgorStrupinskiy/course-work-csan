@@ -236,6 +236,10 @@ body {
     border-color: #5582ff;
 }
 
+.lobbies_button {
+    width: 70%;
+}
+
 .form__title {
     margin-bottom: 30px;
     font-size: 35px;
