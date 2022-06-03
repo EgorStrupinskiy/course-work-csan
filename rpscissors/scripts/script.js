@@ -32,18 +32,14 @@ document.getElementById("lobby_find_button").addEventListener("click", (e) => {
     getRooms()
 })
 
-document.getElementById("lobby_refresh_button").addEventListener("click", (e) => { 
+document.getElementById("lobby_refresh_button").addEventListener("click", (e) => {
     var curLobbies = document.getElementById("lobbies")
-    // for(var i = 0; i < curLobbies.length; i++) {
-    //     document.getElementById("lobbies").removeChild(curLobbies[i])
-    // }
     while (curLobbies.lastChild) {
         curLobbies.removeChild(curLobbies.lastChild);
     }
     getRooms()
 })
 
-document
 
 function getRooms() {
     fetch('http://localhost:8080/message/getAllRooms')
@@ -62,17 +58,17 @@ function getRooms() {
                 x.appendChild(t)
                 x.setAttribute('href', '#');
                 x.classList.add("lobby")
-                x.addEventListener('click', function() {
+                x.addEventListener('click', function () {
                     id = lobbies[i].UUID
-                    fetch('http://localhost:8080/message/getRoom/'  + id)
-                    .then((response) => {
-                        return response.json()
-                    })
-                    .then((data) => {
-                        if(data.currentPeopleCount != data.maxPeopleCount) {
-                            enterLobby(id)
-                        }
-                    })
+                    fetch('http://localhost:8080/message/getRoom/' + id)
+                        .then((response) => {
+                            return response.json()
+                        })
+                        .then((data) => {
+                            if (data.currentPeopleCount != data.maxPeopleCount) {
+                                enterLobby(id)
+                            }
+                        })
                 }, true)
                 x.style.fontSize = "20"
                 document.getElementById("lobbies").appendChild(x)
@@ -82,75 +78,85 @@ function getRooms() {
         })
 }
 
-document.getElementById("game_start_button").addEventListener("click", (e) => { 
+document.getElementById("game_start_button").addEventListener("click", (e) => {
     message['type'] = "game"
     console.log("game start method")
     console.log(message)
+    fetch('http://localhost:8080/message/getRoom/' + id)
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            if (data.currentPeopleCount >= data.minPeopleCount) {
 
-    chatSocket.send(JSON.stringify(message))
-    console.log("Game started")
-        socket = new WebSocket("ws://localhost:8080/websocket")
-        state = "online"
-        socket.onopen = () => {
-            userInfo['sessionStatus'] = 'room game';
-            userInfo['userName'] = ourId
-            userInfo['userChoice'] = id
-            socket.send(JSON.stringify(userInfo));
-            console.log("Socket is open");
-        }
-        document.getElementById("rooms").style.display = "none"
-        document.getElementById("room_page").style.display = "none"
-    
-        document.getElementById("form").style.display = "none"
-        document.getElementById("waiting_page").style.display = "flex"
-        document.getElementById("content_game").style.display = "flex"
+                chatSocket.send(JSON.stringify(message))
+                console.log("Game started")
+                socket = new WebSocket("ws://localhost:8080/websocket")
+                state = "online"
+                socket.onopen = () => {
+                    userInfo['sessionStatus'] = 'room game';
+                    userInfo['userName'] = ourId
+                    userInfo['userChoice'] = id
+                    socket.send(JSON.stringify(userInfo));
+                    console.log("Socket is open");
+                }
+                document.getElementById("rooms").style.display = "none"
+                document.getElementById("room_page").style.display = "none"
 
-        document.getElementById("pScore").textContent = "Your score: "
-        document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-
-        socket.onmessage = (e) => {
-            console.log("Message received");
-            userInfo = JSON.parse(e.data);
-            if (userInfo['sessionStatus'] === "start") {
-                console.log("start message");
-                document.getElementById("waiting_page").style.display = "none"
-                document.getElementById("game").style.display = "block"
-                document.getElementById("cScore").textContent = userInfo.userName + ": "
-    
-            }
-            if (userInfo['sessionStatus'] === "game") {
-                console.log("game message");
-                computerChoice = userInfo['userChoice'];
-                document.getElementById("animation1").style.animation = 'example .4s 1'
-                document.getElementById("animation2").style.animation = 'example .4s 1'
-            }
-            if (userInfo['sessionStatus'] === "terminate") {
-                console.log("terminate message");
-                alert("Your opponent left")
+                document.getElementById("form").style.display = "none"
                 document.getElementById("waiting_page").style.display = "flex"
+                document.getElementById("content_game").style.display = "block"
+
                 document.getElementById("pScore").textContent = "Your score: "
                 document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
-                document.getElementById("game").style.display = "none"
-                document.getElementById("rounds_left").style.display = "none"
-                document.getElementById("pScore").style.display = "none"
-                document.getElementById("cScore").style.display = "none"
-                document.getElementById("final").style.display = "none"
-                document.getElementById("animation1").style.display = "none"
-                document.getElementById("animation2").style.display = "none"
-                document.getElementById("hands_and_btn").style.display = "none"
-                document.getElementById("repeat_button").style.display = "none"
-    
-                document.getElementById("hands_and_btn").style.display = "block"
-                playerScore = 0
-                computerScore = 0
-                moves = 0
+
+                socket.onmessage = (e) => {
+                    console.log("Message received");
+                    userInfo = JSON.parse(e.data);
+                    if (userInfo['sessionStatus'] === "start") {
+                        console.log("start message");
+                        document.getElementById("waiting_page").style.display = "none"
+                        document.getElementById("game").style.display = "block"
+                        document.getElementById("cScore").textContent = userInfo.userName + ": "
+
+                    }
+                    if (userInfo['sessionStatus'] === "game") {
+                        console.log("game message");
+                        computerChoice = userInfo['userChoice'];
+                        document.getElementById("animation1").style.animation = 'example .4s 1'
+                        document.getElementById("animation2").style.animation = 'example .4s 1'
+                    }
+                    if (userInfo['sessionStatus'] === "terminate") {
+                        console.log("terminate message");
+                        alert("Your opponent left")
+                        document.getElementById("waiting_page").style.display = "flex"
+                        document.getElementById("pScore").textContent = "Your score: "
+                        document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+                        document.getElementById("game").style.display = "none"
+                        document.getElementById("rounds_left").style.display = "none"
+                        document.getElementById("pScore").style.display = "none"
+                        document.getElementById("cScore").style.display = "none"
+                        document.getElementById("final").style.display = "none"
+                        document.getElementById("animation1").style.display = "none"
+                        document.getElementById("animation2").style.display = "none"
+                        document.getElementById("hands_and_btn").style.display = "none"
+                        document.getElementById("repeat_button").style.display = "none"
+
+                        document.getElementById("hands_and_btn").style.display = "block"
+                        playerScore = 0
+                        computerScore = 0
+                        moves = 0
+                    }
+                }
+
+                socket.onclose = () => {
+                    console.log("Socket closed");
+                }
+
+            } else {
+                alert("Shame on you, wait for other players!")
             }
-        }
-    
-        socket.onclose = () => {
-            console.log("Socket closed");
-        }
-        
+        })
 })
 
 function enterLobby(id) {
@@ -165,7 +171,7 @@ function enterLobby(id) {
         message['userName'] = localStorage.getItem("userName")
         userName = localStorage.getItem("userName")
         message['type'] = "start"
-        message['groupId'] = id 
+        message['groupId'] = id
         chatSocket.send(JSON.stringify(message))
         console.log("Socket is open")
     }
@@ -205,23 +211,23 @@ function enterLobby(id) {
             }
             document.getElementById("rooms").style.display = "none"
             document.getElementById("room_page").style.display = "none"
-        
+
             document.getElementById("form").style.display = "none"
             document.getElementById("waiting_page").style.display = "flex"
-            document.getElementById("content_game").style.display = "flex"
+            document.getElementById("content_game").style.display = "block"
 
             document.getElementById("pScore").textContent = "Your score: "
             document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" })
-        
+
             socket.onmessage = (e) => {
                 console.log("Message received");
                 userInfo = JSON.parse(e.data);
                 if (userInfo['sessionStatus'] === "start") {
                     console.log("start message");
                     document.getElementById("waiting_page").style.display = "none"
-                    document.getElementById("game").style.display = "flex"
+                    document.getElementById("game").style.display = "block"
                     document.getElementById("cScore").textContent = userInfo.userName + ": "
-        
+
                 }
                 if (userInfo['sessionStatus'] === "game") {
                     console.log("game message");
@@ -244,14 +250,14 @@ function enterLobby(id) {
                     document.getElementById("animation2").style.display = "none"
                     document.getElementById("hands_and_btn").style.display = "none"
                     document.getElementById("repeat_button").style.display = "none"
-        
+
                     document.getElementById("hands_and_btn").style.display = "block"
                     playerScore = 0
                     computerScore = 0
                     moves = 0
                 }
             }
-        
+
             socket.onclose = () => {
                 console.log("Socket closed");
             }
@@ -293,7 +299,7 @@ document.getElementById("lobby_create_button").addEventListener("click", (e) => 
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i])
                     }
-                    
+
                 })
         }
         if (data['type'] === "message") {
@@ -424,7 +430,6 @@ const game = () => {
         document.getElementById("left_hand").style.transform = 'rotate(30deg)';
         document.getElementById("right_hand").src = `./indexAssets/hands/${computerChoice}Right.png`;
         document.getElementById("right_hand").style.transform = 'rotate(-30deg)';
-        // document.getElementById("repeat_button").scrollIntoView({block: "center", behavior: "smooth"});
         document.getElementById('bottom').scrollIntoView(true);
 
         winner(playerOptions[playerChoice], computerChoice)
@@ -434,11 +439,7 @@ const game = () => {
     });
 
 
-    // Function to
     const playGame = () => {
-
-        // Function to start playing game
-
         document.getElementById("game_button").addEventListener('click', function () {
             console.log("playerGame game_button event")
 
@@ -453,19 +454,8 @@ const game = () => {
                 const choiceNumber = Math.floor(Math.random() * 3);
                 computerChoice = computerOptions[choiceNumber];
             }
-
-            // Function to check who wins
-
-            // Calling gameOver function after 10 moves
-
-
-
         })
     }
-
-
-
-    // Function to decide winner
 
     const winner = (player, computer) => {
         const result = document.getElementById('result');

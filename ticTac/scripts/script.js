@@ -22,20 +22,20 @@ let userInfo = {
 var socket;
 
 document.getElementById("name_button").addEventListener("click", (e) => {
-    // if (document.getElementById("name").value === '') {
-    //     alert("Please, enter the name");
-    // } else {
+    if (document.getElementById("name").value === '') {
+        alert("Please, enter the name");
+    } else {
     e.preventDefault()
-    // socket = new WebSocket("ws://localhost:8080/websocket")
-    // state = "online"
-    // socket.onopen = () => {
-    //     userInfo['sessionStatus'] = 'start';
-    //     // userInfo['userName'] = document.getElementById("name").value;
-    //     userInfo['userName'] = localStorage.getItem("userName");
+    socket = new WebSocket("ws://localhost:8080/websocket")
+    state = "online"
+    socket.onopen = () => {
+        userInfo['sessionStatus'] = 'start';
+        // userInfo['userName'] = document.getElementById("name").value;
+        userInfo['userName'] = localStorage.getItem("userName");
 
-    //     socket.send(JSON.stringify(userInfo));
-    //     console.log("Socket is open");
-    // }
+        socket.send(JSON.stringify(userInfo));
+        console.log("Socket is open");
+    }
     document.getElementById("form").style.display = "none"
     // document.getElementById("waiting_page").style.display = "flex"
     document.getElementById("pScore").textContent = "Your score: "
