@@ -434,16 +434,21 @@ function handleResultValidation() {
             break
         }
     }
+    // alert(turn + " " + currentPlayer)
 
     if (roundWon) {
-        statusDisplay.innerHTML = `Player ${userName} has won!`;
+        if (turn === currentPlayer.toUpperCase()) {
+            statusDisplay.innerHTML = `Player ${localStorage.getItem("userName")} has won!`;
+        } else {
+            statusDisplay.innerHTML = `Player ${userInfo['userName']} has won!`;
+        }
         gameActive = false;
         return;
     }
 
     let roundDraw = !gameState.includes("");
     if (roundDraw) {
-        statusDisplay.innerHTML = `Player ${userInfo['userName']} has won!`;
+        statusDisplay.innerHTML = `Draw!`;
         gameActive = false;
         return;
     }
